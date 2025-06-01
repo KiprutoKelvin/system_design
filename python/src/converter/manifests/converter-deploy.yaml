@@ -3,27 +3,26 @@ kind: Deployment
 metadata:
   name: converter
   labels:
-    app:
+    app: converter
 spec:
   replicas: 4
   selector:
-    matchLables:
+    matchLabels:
       app: converter
-strategy:
-  type: RollingUpdate
-  rollingUpdate:
-   maxSurge: 8
-template:
-  metadata:
-    labels:
-      app: converter
-  spec:
-    containers:
-     - name: converter
-       image: kiprutoh/converter
-       envFrom:
-        - configMapRef:
-            name: converter-configmap
-        - secretRef:
-            name: converter-secret
-
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 8
+  template:
+    metadata:
+      labels:
+        app: converter
+    spec:
+      containers:
+        - name: converter
+          image: kiprutoh/converter
+          envFrom:
+            - configMapRef:
+                name: converter-configmap
+            - secretRef:
+                name: converter-secret
